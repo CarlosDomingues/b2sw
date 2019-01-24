@@ -12,3 +12,5 @@ install:
 
 script:
   - poetry run test
+  - poetry run coverage run -m unittest discover
+  - poetry run codecov --token=71813ead-9862-409e-9354-cff3206b42e2
