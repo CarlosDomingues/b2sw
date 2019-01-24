@@ -1,0 +1,15 @@
+language: python
+
+os:
+  - linux
+
+python:
+  - '3.6'
+
+install:
+  - apt-get update -q -y
+  - pip install poetry
+  - poetry run tests
+
+script:
+  - pytest
