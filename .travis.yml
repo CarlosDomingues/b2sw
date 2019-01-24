@@ -11,4 +11,4 @@ install:
   - poetry install
 
 script:
-  - poetry run tests
+  - poetry run test
