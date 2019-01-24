@@ -12,7 +12,7 @@
 
 ## Architecture
 
-![b2sw architecture](architecturer.png 'b2sw architecture')
+![b2sw architecture](https://user-images.githubusercontent.com/11181378/51699710-9a235980-1ff4-11e9-9c7e-6a2021637ac0.png 'b2sw architecture')
 
 ## Development Enviroment
 
