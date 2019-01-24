@@ -11,7 +11,6 @@ requests = "^2.21"
 responses = "^0.10.5"
 
 [tool.poetry.dev-dependencies]
-pytest = "^3.0"
 pylint = "^2.2"
 autopep8 = "^1.4"
 
