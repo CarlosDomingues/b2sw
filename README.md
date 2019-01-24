@@ -1,6 +1,6 @@
 # b2sw
 
-![build](https://img.shields.io/travis/com/CarlosDomingues/b2sw.svg?style=popout-square) ![License](https://img.shields.io/github/license/CarlosDomingues/b2sw.svg?style=popout-square)
+![build](https://img.shields.io/travis/com/CarlosDomingues/b2sw.svg?style=popout-square) ![coverage](https://img.shields.io/codecov/c/gh/CarlosDomingues/b2sw.svg?style=popout-square) ![license](https://img.shields.io/github/license/CarlosDomingues/b2sw.svg?style=popout-square)
 
 ## Introduction
 
@@ -16,7 +16,7 @@
 
 ## Development Enviroment
 
-**b2sw** requires Python 3.6+ and [Poetry](https://github.com/sdispater/poetry) for dependency management. After meeting those requirements, go to the project root folder, then:
+**b2sw** requires Pytho 3.6+ and [Poetry](https://github.com/sdispater/poetry) for dependency management. After meeting those requirements, go to the project root folder, then:
 
 1. Install dependencies:
 
@@ -30,7 +30,7 @@ poetry install
 poetry run test
 ```
 
-3. (Optional for Visual Studio Code users) Set up a workspace by creating a `b2sw.code-workspace` file with the following content:
+3. (Optional for [Visual Studio Code](https://code.visualstudio.com/) users) Set up a workspace by creating a `b2sw.code-workspace` file with the following content:
 
 ```json
 {
@@ -51,6 +51,6 @@ To find your actual poetry virtual enviroment path run:
 poetry run which python
 ```
 
-**Note to Windows users**: use '\\\\' instead of '/' to join paths.
+**Note to Windows users**: use **\\\\** instead of **/** to join paths.
 
 ## Licensing
