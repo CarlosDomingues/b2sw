@@ -8,7 +8,7 @@ python:
 
 install:
   - pip install poetry
-  - poetry run test
+  - poetry install
 
 script:
-  - pytest
+  - poetry run tests
