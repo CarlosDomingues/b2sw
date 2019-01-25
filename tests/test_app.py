@@ -17,7 +17,7 @@ class TestApp(unittest.TestCase):
 
     def test_create_app(self):
         """
-        Create app should correctly return a Flask-API appself.
+        Create app should correctly return a Flask-API app.
         """
         self.assertTrue(
             isinstance(
