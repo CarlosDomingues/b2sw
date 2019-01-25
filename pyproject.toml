@@ -9,6 +9,7 @@ python = "^3.6"
 requests = "^2.21"
 responses = "^0.10.5"
 Flask-API = "^1.1"
+boto3 = "^1.9"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.2"
