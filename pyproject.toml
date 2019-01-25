@@ -6,9 +6,9 @@ authors = ["Carlos Felipe Domingues e Oliveira <cfelipe.domingues@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-flask = "^1.0"
 requests = "^2.21"
 responses = "^0.10.5"
+Flask-API = "^1.1"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.2"
