@@ -1,6 +1,6 @@
 # b2sw
 
-![build](https://img.shields.io/travis/com/CarlosDomingues/b2sw.svg?style=popout-square) ![coverage](https://img.shields.io/codecov/c/gh/CarlosDomingues/b2sw.svg?style=popout-square) ![license](https://img.shields.io/github/license/CarlosDomingues/b2sw.svg?style=popout-square)
+![build](https://img.shields.io/travis/com/CarlosDomingues/b2sw.svg?style=popout-square) ![maintainability](https://img.shields.io/codeclimate/maintainability/CarlosDomingues/b2sw.svg?style=popout-square) ![issues](https://img.shields.io/codeclimate/issues/CarlosDomingues/b2sw.svg?style=popout-square) ![coverage](https://img.shields.io/codecov/c/gh/CarlosDomingues/b2sw.svg?style=popout-square) ![license](https://img.shields.io/github/license/CarlosDomingues/b2sw.svg?style=popout-square)
 
 ## Introduction
 
