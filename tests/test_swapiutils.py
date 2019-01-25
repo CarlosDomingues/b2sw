@@ -40,9 +40,10 @@ class TestSwapiSearch(unittest.TestCase):
         """
         with self.assertRaises(ValueError) as context:
             SwapiSearch('dogs', 'Dagobah')
-            self.assertTrue(
-                'dogs not supported. Supported resources:' in context.exception
-            )
+        self.assertTrue(
+            "dogs not supported. Supported resources: ['planets']"
+            in str(context.exception)
+        )
 
     def test_invalid_search_value(self):
         """
@@ -51,9 +52,10 @@ class TestSwapiSearch(unittest.TestCase):
         """
         with self.assertRaises(TypeError) as context:
             SwapiSearch('planets', 95)
-            self.assertTrue(
-                'dogs not supported. Supported resources:' in context.exception
-            )
+        self.assertTrue(
+            "search_value must be a string. Got: <class 'int'>"
+            in str(context.exception)
+        )
 
     def test_build_url(self):
         """
