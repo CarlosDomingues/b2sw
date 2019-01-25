@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=4cb1d8a1fe314d119b2930b71bdeb5e4f1dd4f8392aced379cc23f6ac6072a28
+
 language: python
 
 os:
@@ -10,7 +14,15 @@ install:
   - pip install poetry
   - poetry install
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
   - poetry run test
   - poetry run coverage run -m unittest discover
   - poetry run codecov --token=71813ead-9862-409e-9354-cff3206b42e2
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
