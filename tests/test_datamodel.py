@@ -32,13 +32,17 @@ class TestPlanets(unittest.TestCase):
         planets = Planets()
         self.assertEqual(planets.table.name, 'planets')
 
-    @unittest.mock.patch.object('boto3.resources.factory.dynamodb.Table', 'get_item')
-    def test_get_planet(self, fake_get_item):
+    @unittest.mock.patch('b2sw.datamodel.boto3')
+    def test_get_planet(self, fake_boto3):
         """
         get() should call boto3 with the correct parameters.
         """
-        # reponse {'id': Decimal('1'), 'climate': 'murky', 'name': 'Dagobah', 'terrain': ['swamp', 'jungles']}
         planets = Planets()
-        fake_get_item.return_value = 'a'
-        planet = planets.get('Dagobah')
-        self.assertEqual(planet['name'], 'Dagobah')
+        planets.get('Dagobah')
+        fake_boto3.resource.assert_called_with('dynamodb')
+        fake_boto3.resource().Table.assert_called_with('planets')
+        fake_boto3.resource().Table().get_item.assert_called_with(
+            Key={
+                'name': 'Dagobah'
+            }
+        )
