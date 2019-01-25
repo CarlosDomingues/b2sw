@@ -35,14 +35,27 @@ class TestPlanets(unittest.TestCase):
         fake_boto3.resource().Table.assert_called_with('planets')
 
     @unittest.mock.patch('b2sw.datamodel.boto3')
-    def test_get_planet(self, fake_boto3):
+    def test_get_by_name(self, fake_boto3):
         """
-        get() should call boto3 with the correct parameters.
+        get_by_name() should call boto3 with the correct parameters.
         """
         planets = Planets()
-        planets.get('Dagobah')
+        planets.get_by_name('Dagobah')
         fake_boto3.resource().Table().get_item.assert_called_with(
             Key={
                 'name': 'Dagobah'
+            }
+        )
+
+    @unittest.mock.patch('b2sw.datamodel.boto3')
+    def test_get_by_id(self, fake_boto3):
+        """
+        get_by_id() should call boto3 with the correct parameters.
+        """
+        planets = Planets()
+        planets.get_by_id(1)
+        fake_boto3.resource().Table().get_item.assert_called_with(
+            Key={
+                'id': 1
             }
         )

@@ -15,14 +15,27 @@ class Planets():
         dynamodb = boto3.resource('dynamodb')
         self.table = dynamodb.Table('planets')
 
-    def get(self, name):
+    def get_by_name(self, planet_name):
         """
-        Returns a planet with name equals 'name'
+        Returns a planet with name equals 'planet_name'
         TODO - NAME MUST BE VALID
         """
         response = self.table.get_item(
             Key={
-                'name': name
+                'name': planet_name
+            }
+        )
+        planet = response['Item']
+        return planet
+
+    def get_by_id(self, planet_id):
+        """
+        Returns a planet with id equals 'planet_id'
+        TODO - NAME MUST BE VALID
+        """
+        response = self.table.get_item(
+            Key={
+                'id': planet_id
             }
         )
         planet = response['Item']
