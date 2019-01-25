@@ -25,12 +25,14 @@ class TestPlanets(unittest.TestCase):
             message="unclosed.*<ssl.SSLSocket.*>"
         )
 
-    def test_constructor(self):
+    @unittest.mock.patch('b2sw.datamodel.boto3')
+    def test_constructor(self, fake_boto3):
         """
         The table object must be create successfuly
         """
-        planets = Planets()
-        self.assertEqual(planets.table.name, 'planets')
+        Planets()
+        fake_boto3.resource.assert_called_with('dynamodb')
+        fake_boto3.resource().Table.assert_called_with('planets')
 
     @unittest.mock.patch('b2sw.datamodel.boto3')
     def test_get_planet(self, fake_boto3):
@@ -39,8 +41,6 @@ class TestPlanets(unittest.TestCase):
         """
         planets = Planets()
         planets.get('Dagobah')
-        fake_boto3.resource.assert_called_with('dynamodb')
-        fake_boto3.resource().Table.assert_called_with('planets')
         fake_boto3.resource().Table().get_item.assert_called_with(
             Key={
                 'name': 'Dagobah'
