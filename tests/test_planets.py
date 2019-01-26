@@ -87,3 +87,25 @@ class TestPlanets(unittest.TestCase):
             in str(
                 context.exception)
         )
+
+    @unittest.mock.patch('b2sw.planets.boto3')
+    def test_put(self, fake_boto3):
+        """
+        put() should call boto3 with the correct parameters.
+        """
+        planets = Planets()
+        planet = {
+            'planet_id':                2,
+            'name':              'Pluto',
+            'terrain':             'Ice',
+            'climate': 'A bit too cold.',
+        }
+        planets.put(**planet)
+        fake_boto3.resource().Table().put_item.assert_called_with(
+            Item={
+                'id': 2,
+                'name': 'Pluto',
+                'climate': 'A bit too cold.',
+                'terrain': 'Ice',
+            }
+        )
