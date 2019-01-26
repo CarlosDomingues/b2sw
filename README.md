@@ -36,7 +36,35 @@ poetry install
 poetry run test
 ```
 
-3 - (Optional for [Visual Studio Code](https://code.visualstudio.com/) users) Set up a workspace by creating a `b2sw.code-workspace` file with the following content:
+3 - (Optional) Create a `set-env` script to easily export enviroment variables:
+
+`set-env.sh`
+
+```bash
+export FLASK_APP="run.py"
+export SECRET="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
+export APP_SETTINGS="development"
+export DATABASE_URL="postgresql://localhost/flask_api"
+```
+
+`set-env.ps1`
+
+```powershell
+Set-Variable FLASK_APP="run.py"
+Set-Variable SECRET="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
+Set-Variable APP_SETTINGS="development"
+Set-Variable DATABASE_URL="postgresql://localhost/flask_api"
+```
+
+Then run the script:
+
+```bash
+poetry run env
+```
+
+**IMPORTANT** double confirm set-env\* is correctly added to the .gitignore file.
+
+4 - (Optional for [Visual Studio Code](https://code.visualstudio.com/) users) Set up a workspace by creating a `b2sw.code-workspace` file with the following content:
 
 ```json
 {
