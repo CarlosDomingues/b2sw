@@ -17,15 +17,16 @@ class SwapiSearch:
     def __init__(self, resource, search_value):
         if resource not in SwapiConfig.RESOURCES:
             raise ValueError(
-                resource + ' not supported. Supported resources: ' +
+                str(resource) + ' not supported. Supported resources: ' +
                 str(SwapiConfig.RESOURCES)
             )
         if isinstance(search_value, str) is not True:
             raise TypeError(
-                'search_value must be a string.'
+                'search_value must be a string. Got: ' +
+                str(type(search_value))
             )
         self.resource = resource
-        self. search_value = search_value
+        self.search_value = str(search_value)
 
     def build_url(self):
         """
