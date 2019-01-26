@@ -53,3 +53,16 @@ class Planets():
         )
         planet = response['Item']
         return planet
+
+    def put(self, planet_id, name, climate, terrain):
+        """
+        Creates a new planet on the database
+        """
+        self.table.put_item(
+            Item={
+                'id': planet_id,
+                'name': name,
+                'climate': climate,
+                'terrain': terrain,
+            }
+        )
