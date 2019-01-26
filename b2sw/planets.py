@@ -54,6 +54,33 @@ class Planets():
         planet = response['Item']
         return planet
 
+    def delete(self, key_value, key):
+        """
+        Deletes a planet using one of the allowed keys defined on
+        self.schema['primary_keys']
+        """
+        if key not in self.schema['primary_keys']:
+            raise ValueError(
+                key + ' is not a valid search key. Please use one of the following: ' +
+                str(list(self.schema['primary_keys'].keys())).replace('\'', '')
+            )
+        if isinstance(key_value, self.schema['primary_keys'][key]) is False:
+            raise TypeError(
+                key_value + ' is not a valid ' + key + '. Expected type: ' +
+                str(self.schema['primary_keys'][key]) + '. Actual type: ' +
+                str(type(key_value))
+            )
+        response = self.table.delete_item(
+            Key={
+                # Since we only test with isinstance, the type of key_value
+                # might not be what boto3 expects and we need to cast it to
+                # the correct one.
+                # Example: isinstance(True, int) -> True int(True) -> 1
+                key: self.schema['primary_keys'][key](key_value)
+            }
+        )
+        return response
+
     def put(self, planet_id, name, climate, terrain):
         """
         Creates a new planet on the database
@@ -64,5 +91,19 @@ class Planets():
                 'name': name,
                 'climate': climate,
                 'terrain': terrain,
+            }
+        )
+
+    def update(self, key, key_value, update_item, update_value):
+        """
+        Updates a planet on the database
+        """
+        self.table.update_item(
+            Key={
+                key: key_value
+            },
+            UpdateExpression='SET' + update_item + ' :val1',
+            ExpressionAttributeValues={
+                ':val1': update_value
             }
         )
