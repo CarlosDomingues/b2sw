@@ -5,6 +5,8 @@ schema enforcing procedures.
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, NumberAttribute, ListAttribute
 
+from b2sw.config import PlanetsConfig
+
 
 class Planets(Model):
     """
@@ -14,14 +16,14 @@ class Planets(Model):
         """
         Table name on DynamoDB
         """
-        table_name = 'Planets'
+        PlanetsConfig.table_name = 'Planets'
     climate = ListAttribute(null=False)
     terrain = ListAttribute(null=False)
     name = UnicodeAttribute(null=False)
     planet_id = NumberAttribute(hash_key=True)
     read_capacity_units = 5
     write_capacity_units = 5
-    region = 'us-east-1'
+    PlanetsConfig.region = 'us-east-1'
 
 
 def get_by_id(planet_id):
