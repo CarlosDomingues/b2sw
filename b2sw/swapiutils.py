@@ -15,10 +15,10 @@ class SwapiSearch:
     """
 
     def __init__(self, resource, search_value):
-        if resource not in SwapiConfig.RESOURCES:
+        if resource not in SwapiConfig.resources:
             raise ValueError(
                 str(resource) + ' not supported. Supported resources: ' +
-                str(SwapiConfig.RESOURCES)
+                str(SwapiConfig.resources)
             )
         if isinstance(search_value, str) is not True:
             raise TypeError(
@@ -32,7 +32,7 @@ class SwapiSearch:
         """
         blabla
         """
-        return SwapiConfig.BASE_URL + 'api/{0}/?search={1}'.format(
+        return SwapiConfig.base_url + 'api/{0}/?search={1}'.format(
             self.resource,
             self.search_value
         )
@@ -42,5 +42,5 @@ class SwapiSearch:
         TODO - Handle requests.get exception
         """
         url = self.build_url()
-        response = requests.get(url, headers=SwapiConfig.HEADERS)
+        response = requests.get(url, headers=SwapiConfig.headers)
         return response.json()
