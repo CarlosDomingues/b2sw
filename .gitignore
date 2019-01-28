@@ -119,6 +119,7 @@ dmypy.json
 .venv/
 
 ### VisualStudioCode ###
+.vscode*
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -132,5 +133,9 @@ dmypy.json
 
 # Enviroment scripts
 set-env*
+
+# Comissioning documents
+comissioning*
+comissioning/*
 
 # End of https://www.gitignore.io/api/python,visualstudiocode
