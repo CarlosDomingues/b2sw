@@ -4,9 +4,9 @@ Tests related to the planets module.
 
 import unittest
 import unittest.mock
-import warnings
 
-from b2sw.planets import Planets
+
+from b2sw import planets
 
 
 class TestPlanets(unittest.TestCase):
@@ -14,98 +14,49 @@ class TestPlanets(unittest.TestCase):
     Tests related to the Planets class
     """
 
-    def setUp(self):
+    @unittest.mock.patch('b2sw.planets.Planets')
+    def test_get_by_id(self, fake_table):
         """
-        Ignore boto3 SSL Socket Warnings, please see:
-        https://github.com/boto/boto3/issues/454
+        get_by_id should call PynamoDB API correctly.
         """
-        warnings.filterwarnings(
-            "ignore",
-            category=ResourceWarning,
-            message="unclosed.*<ssl.SSLSocket.*>"
-        )
+        planets.get_by_id(1)
+        fake_table.get.assert_called_with(1)
 
-    @unittest.mock.patch('b2sw.planets.boto3')
-    def test_constructor(self, fake_boto3):
+    @unittest.mock.patch('b2sw.planets.Planets')
+    def test_get_by_name(self, fake_table):
         """
-        The table object must be create successfuly
+        get_by_name should call PynamoDB API correctly.
         """
-        Planets()
-        fake_boto3.resource.assert_called_with('dynamodb')
-        fake_boto3.resource().Table.assert_called_with('planets')
+        planets.get_by_name('Pluto')
+        fake_table.scan.assert_called_with(fake_table.name == 'Pluto')
 
-    @unittest.mock.patch('b2sw.planets.boto3')
-    def test_get_by_name(self, fake_boto3):
+    @unittest.mock.patch('b2sw.planets.Planets')
+    def test_put(self, fake_table):
         """
-        get_by_name() should call boto3 with the correct parameters.
+        put should call PynamoDB API correctly.
         """
-        planets = Planets()
-        planets.get('Dagobah', key='name')
-        fake_boto3.resource().Table().get_item.assert_called_with(
-            Key={
-                'name': 'Dagobah'
-            }
+        planets.put(
+            1,
+            'Pluto',
+            ['Cold', 'Very Cold'],
+            ['Ice']
         )
+        fake_table().save.assert_called_with()
 
-    @unittest.mock.patch('b2sw.planets.boto3')
-    def test_get_by_id(self, fake_boto3):
+    @unittest.mock.patch('b2sw.planets.Planets')
+    def test_delete(self, fake_table):
         """
-        get_by_id() should call boto3 with the correct parameters.
+        delete should call PynamoDB API correctly.
         """
-        planets = Planets()
-        planets.get(1, key='id')
-        fake_boto3.resource().Table().get_item.assert_called_with(
-            Key={
-                'id': 1
-            }
-        )
+        planets.delete(1)
+        fake_table.get.assert_called_with(1)
+        fake_table.get().delete.assert_called_with()
 
-    @unittest.mock.patch('b2sw.planets.boto3')
-    def test_get_invalid_key(self, fake_boto3):
+    @unittest.mock.patch('b2sw.planets.Planets')
+    def test_update(self, fake_table):
         """
-        get_by_id() should raise a ValueError exception if the key is invalid.
+        delete should call PynamoDB API correctly.
         """
-        with self.assertRaises(ValueError) as context:
-            planets = Planets()
-            planets.get(complex(0, 1), key='imaginary_id')
-        self.assertTrue(
-            'imaginary_id is not a valid search key. Please use one of the following: [id, name]' in str(
-                context.exception)
-        )
-
-    @unittest.mock.patch('b2sw.planets.boto3')
-    def test_get_invalid_value_type(self, fake_boto3):
-        """
-        get_by_id() should raise a TypeError exception if the given value type
-        does not conform with the one expected by the table schema.
-        """
-        with self.assertRaises(TypeError) as context:
-            planets = Planets()
-            planets.get('Joe', key='id')
-        self.assertTrue(
-            "Joe is not a valid id. Expected type: <class 'int'>. Actual type: <class 'str'>"
-            in str(
-                context.exception)
-        )
-
-    @unittest.mock.patch('b2sw.planets.boto3')
-    def test_put(self, fake_boto3):
-        """
-        put() should call boto3 with the correct parameters.
-        """
-        planets = Planets()
-        planet = {
-            'planet_id':                2,
-            'name':              'Pluto',
-            'terrain':             'Ice',
-            'climate': 'A bit too cold.',
-        }
-        planets.put(**planet)
-        fake_boto3.resource().Table().put_item.assert_called_with(
-            Item={
-                'id': 2,
-                'name': 'Pluto',
-                'climate': 'A bit too cold.',
-                'terrain': 'Ice',
-            }
-        )
+        planets.update(1, name='New Pluto')
+        fake_table.get.assert_called_with(1)
+        fake_table.get().refresh.assert_called_with()
