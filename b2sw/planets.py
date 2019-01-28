@@ -2,67 +2,74 @@
 This module contains functions to interact with the database, as well as
 schema enforcing procedures.
 """
+from pynamodb.models import Model
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute, ListAttribute
 
-import boto3
 
-
-class Planets():
+class Planets(Model):
     """
-    Represents the 'planets' table.
-    TODO - ALLOW SCHEMA TO BE CONFIGURABLE
+    Describes the schema used on our DynamoDB table.
     """
+    class Meta:
+        """
+        Table name on DynamoDB
+        """
+        table_name = 'Planets'
+    climate = ListAttribute(null=False)
+    terrain = ListAttribute(null=False)
+    name = UnicodeAttribute(null=False)
+    planet_id = NumberAttribute(hash_key=True)
+    read_capacity_units = 5
+    write_capacity_units = 5
+    region = 'us-east-1'
 
-    def __init__(self):
-        dynamodb = boto3.resource('dynamodb')
-        self.table = dynamodb.Table('planets')
-        self.schema = {
-            'primary_keys': {
-                'id':   int,
-                'name': str
-            },
-            'other_keys': {
-                'climate': str,
-                'terrain': str
-            }
-        }
 
-    def get(self, key_value, key):
-        """
-        Queries a planet using one of the allowed keys defined on
-        self.schema['primary_keys']
-        """
-        if key not in self.schema['primary_keys']:
-            raise ValueError(
-                key + ' is not a valid search key. Please use one of the following: ' +
-                str(list(self.schema['primary_keys'].keys())).replace('\'', '')
-            )
-        if isinstance(key_value, self.schema['primary_keys'][key]) is False:
-            raise TypeError(
-                key_value + ' is not a valid ' + key + '. Expected type: ' +
-                str(self.schema['primary_keys'][key]) + '. Actual type: ' +
-                str(type(key_value))
-            )
-        response = self.table.get_item(
-            Key={
-                # Since we only test with isinstance, the type of key_value
-                # might not be what boto3 expects and we need to cast it to
-                # the correct one.
-                # Example: isinstance(True, int) -> True int(True) -> 1
-                key: self.schema['primary_keys'][key](key_value)
-            }
-        )
-        planet = response['Item']
-        return planet
+def get_by_id(planet_id):
+    """
+    Returns the planet with the specified planet_id.
+    """
+    planet = Planets.get(planet_id)
+    return planet
 
-    def put(self, planet_id, name, climate, terrain):
-        """
-        Creates a new planet on the database
-        """
-        self.table.put_item(
-            Item={
-                'id': planet_id,
-                'name': name,
-                'climate': climate,
-                'terrain': terrain,
-            }
-        )
+
+def get_by_name(name):
+    """
+    Returns the planet with the specified name.
+    TODO - Raise exception if planet does not exist
+    """
+    planets = [x for x in Planets.scan(Planets.name == name)]
+    return planets
+
+
+def delete(planet_id):
+    """
+    Deletes the planet with the specified planet_id
+    """
+    planet = Planets.get(planet_id)
+    planet.delete()
+
+
+def put(planet_id, name, climate, terrain):
+    """
+    Creates a new planet and adds it to the database.
+    TODO - Planet name must be unique.
+    """
+    planet = Planets(planet_id)
+    planet.name = name
+    planet.climate = climate
+    planet.terrain = terrain
+    planet.save()
+
+
+def update(planet_id, name=None, climate=None, terrain=None):
+    """
+    Updates the attributes of an existing planet.
+    """
+    planet = Planets.get(planet_id)
+    if name is not None:
+        planet.name = name
+    if name is not None:
+        planet.climate = climate
+    if name is not None:
+        planet.terrain = terrain
+    planet.refresh()

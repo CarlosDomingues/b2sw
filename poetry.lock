@@ -3,7 +3,6 @@ category = "dev"
 description = "An abstract syntax tree for Python with inference support."
 name = "astroid"
 optional = false
-platform = "*"
 python-versions = ">=3.4.*"
 version = "2.1.0"
 
@@ -21,7 +20,6 @@ category = "dev"
 description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
 name = "autopep8"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "1.4.3"
 
@@ -33,7 +31,6 @@ category = "main"
 description = "The AWS SDK for Python"
 name = "boto3"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "1.9.84"
 
@@ -47,7 +44,6 @@ category = "main"
 description = "Low-level, data-driven core of boto 3."
 name = "botocore"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "1.12.84"
 
@@ -68,7 +64,6 @@ category = "main"
 description = "Python package for providing Mozilla's CA Bundle."
 name = "certifi"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "2018.11.29"
 
@@ -77,7 +72,6 @@ category = "main"
 description = "Universal encoding detector for Python 2 and 3"
 name = "chardet"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "3.0.4"
 
@@ -86,7 +80,6 @@ category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "7.0"
 
@@ -95,7 +88,6 @@ category = "dev"
 description = "Hosted coverage reports for Github, Bitbucket and Gitlab"
 name = "codecov"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "2.0.15"
 
@@ -106,21 +98,17 @@ requests = ">=2.7.9"
 [[package]]
 category = "dev"
 description = "Cross-platform colored terminal text."
+marker = "sys_platform == \"win32\""
 name = "colorama"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.4.1"
-
-[package.requirements]
-platform = "win32"
 
 [[package]]
 category = "dev"
 description = "Code coverage measurement for Python"
 name = "coverage"
 optional = false
-platform = "*"
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*, <4"
 version = "4.5.2"
 
@@ -129,7 +117,6 @@ category = "main"
 description = "Docutils -- Python Documentation Utilities"
 name = "docutils"
 optional = false
-platform = "OS-independent"
 python-versions = "*"
 version = "0.14"
 
@@ -138,7 +125,6 @@ category = "main"
 description = "A simple framework for building complex web applications."
 name = "flask"
 optional = false
-platform = "any"
 python-versions = "*"
 version = "1.0.2"
 
@@ -153,7 +139,6 @@ category = "main"
 description = "Browsable web APIs for Flask."
 name = "flask-api"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "1.1"
 
@@ -165,7 +150,6 @@ category = "main"
 description = "Internationalized Domain Names in Applications (IDNA)"
 name = "idna"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.8"
 
@@ -174,7 +158,6 @@ category = "dev"
 description = "A Python utility / library to sort Python imports."
 name = "isort"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "4.3.4"
 
@@ -183,7 +166,6 @@ category = "main"
 description = "Various helpers to pass data to untrusted environments and back."
 name = "itsdangerous"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "1.1.0"
 
@@ -192,7 +174,6 @@ category = "main"
 description = "A small but fast and easy to use stand-alone template engine written in pure python."
 name = "jinja2"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "2.10"
 
@@ -204,7 +185,6 @@ category = "main"
 description = "JSON Matching Expressions"
 name = "jmespath"
 optional = false
-platform = "UNKNOWN"
 python-versions = "*"
 version = "0.9.3"
 
@@ -213,7 +193,6 @@ category = "dev"
 description = "A fast and thorough lazy object proxy."
 name = "lazy-object-proxy"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "1.3.1"
 
@@ -222,7 +201,6 @@ category = "main"
 description = "Safely add untrusted strings to HTML/XML markup."
 name = "markupsafe"
 optional = false
-platform = "*"
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
 version = "1.1.0"
 
@@ -231,7 +209,6 @@ category = "dev"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "0.6.1"
 
@@ -240,7 +217,6 @@ category = "dev"
 description = "Python style guide checker"
 name = "pycodestyle"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "2.4.0"
 
@@ -249,40 +225,44 @@ category = "dev"
 description = "python code static checker"
 name = "pylint"
 optional = false
-platform = "*"
 python-versions = ">=3.4.*"
 version = "2.2.2"
 
 [package.dependencies]
 astroid = ">=2.0.0"
+colorama = "*"
 isort = ">=4.2.5"
 mccabe = "*"
 
-[package.dependencies.colorama]
-platform = "win32"
-version = "*"
+[[package]]
+category = "main"
+description = "A Pythonic Interface to DynamoDB"
+name = "pynamodb"
+optional = false
+python-versions = "*"
+version = "3.3.3"
+
+[package.dependencies]
+botocore = ">=1.2.0"
+python-dateutil = ">=2.1,<3.0.0"
+six = "*"
 
 [[package]]
 category = "main"
 description = "Extensions to the standard Python datetime module"
 name = "python-dateutil"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "2.7.5"
 
 [package.dependencies]
 six = ">=1.5"
 
-[package.requirements]
-python = ">=2.7"
-
 [[package]]
 category = "main"
 description = "Python HTTP for Humans."
 name = "requests"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.21.0"
 
@@ -297,7 +277,6 @@ category = "main"
 description = "A utility library for mocking out the `requests` Python library."
 name = "responses"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.10.5"
 
@@ -310,7 +289,6 @@ category = "main"
 description = "An Amazon S3 Transfer Manager"
 name = "s3transfer"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "0.1.13"
 
@@ -322,28 +300,23 @@ category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
-platform = "*"
 python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 version = "1.12.0"
 
 [[package]]
 category = "dev"
 description = "a fork of Python 2 and 3 ast modules with type comment support"
+marker = "python_version < \"3.7\" and implementation_name == \"cpython\""
 name = "typed-ast"
 optional = false
-platform = "POSIX"
 python-versions = "*"
 version = "1.2.0"
-
-[package.requirements]
-python = "<3.7"
 
 [[package]]
 category = "main"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
-platform = "*"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
 version = "1.24.1"
 
@@ -352,7 +325,6 @@ category = "main"
 description = "The comprehensive WSGI web application library."
 name = "werkzeug"
 optional = false
-platform = "any"
 python-versions = "*"
 version = "0.14.1"
 
@@ -361,13 +333,11 @@ category = "dev"
 description = "Module for decorators, wrappers and monkey patching."
 name = "wrapt"
 optional = false
-platform = "*"
 python-versions = "*"
 version = "1.11.1"
 
 [metadata]
-content-hash = "294580fc0a73b7980d96e6b1049d11ac5a6301ffc3c69a3b882b2fa49fe269d1"
-platform = "*"
+content-hash = "34f1c58a9ce13a72044276855130024b0466ac85dd596db64d3dbc0b90f49e51"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -394,6 +364,7 @@ markupsafe = ["048ef924c1623740e70204aa7143ec592504045ae4429b59c30054cb31e3c432"
 mccabe = ["ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42", "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"]
 pycodestyle = ["74abc4e221d393ea5ce1f129ea6903209940c1ecd29e002e8c6933c2b21026e0", "cbc619d09254895b0d12c2c691e237b2e91e9b2ecf5e84c26b35400f93dcfb83", "cbfca99bd594a10f674d0cd97a3d802a1fdef635d4361e1a2658de47ed261e3a"]
 pylint = ["689de29ae747642ab230c6d37be2b969bf75663176658851f456619aacf27492", "771467c434d0d9f081741fec1d64dfb011ed26e65e12a28fe06ca2f61c4d556c"]
+pynamodb = ["5a2416589c6aeb823819ce3b0b8bdc12d15b623bc5440e16815df494ea07fa4b", "714229add7b8f31fcb02d6af7a6fa696dedf18aed021f504b697c39b826607e8"]
 python-dateutil = ["063df5763652e21de43de7d9e00ccf239f953a832941e37be541614732cdfc93", "88f9287c0174266bb0d8cedd395cfba9c58e87e5ad86b2ce58859bc11be3cf02"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 responses = ["c85882d2dc608ce6b5713a4e1534120f4a0dc6ec79d1366570d2b0c909a50c87", "ea5a14f9aea173e3b786ff04cf03133c2dabd4103dbaef1028742fd71a6c2ad3"]
